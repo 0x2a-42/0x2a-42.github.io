@@ -58,7 +58,7 @@ var buffer = {
   "c": "void f() {\n  g(1,\n  int x = 2 +\n}",
   "lua": "function f()\n  g(1,\n  local x = 2 +\nend",
   "l": "fn f() {\n  g(1,\n  let x = 2 +\n}",
-  "lelwel": "token Num='<number>';\ntoken Plus='+' Minus='-' Star='*' Slash='/';\ntoken LPar='(' RPar=')';\ntoken Whitespace;\nskip Whitespace;\n\nstart calc;\n\ncalc: expr;\nexpr:\n  expr ('*' | '/') expr\n| expr ('+' | '-') expr\n| atomic\n;\natomic: literal | paren;\nliteral: Num;\nparen: '(' expr ')';",
+  "lelwel": "token Num='<number>';\ntoken Plus='+' Minus='-' Star='*' Slash='/' Pow='^';\ntoken LPar='(' RPar=')';\ntoken Whitespace;\n\nskip Whitespace;\nright '^';\nstart calc;\n\ncalc^: expr;\nexpr:\n  expr '^' expr @binary_expr\n| ('-' | '+') expr @unary_expr\n| expr ('*' | '/') expr @binary_expr\n| expr ('+' | '-') expr @binary_expr\n| Num @literal_expr\n| '(' expr ')' @paren_expr\n;",
   "oberon0": "MODULE Example;\n  PROCEDURE f();\n    VAR x: INTEGER;\n  BEGIN\n    g(1,\n    x := 2 +\n  END f;\nEND Example.",
   "json": "{ \"a\" [1 2, 3], \"b\": \"c\", }",
 };
