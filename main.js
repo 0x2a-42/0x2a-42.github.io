@@ -17,10 +17,42 @@ const cst_output = document.getElementById("cst_output");
 const error_output = document.getElementById("error_output");
 const language_selector = document.getElementById("language_selector");
 const show_implementation = document.getElementById("show_implementation");
+const dark_mode = document.getElementById("dark_mode");
 
 const editor = CodeMirror.fromTextArea(input, {
     lineNumbers: true,
 });
+
+var is_dark_mode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+if (is_dark_mode) {
+    document.body.classList.toggle("dark-mode");
+    error_output.classList.toggle("dark-mode");
+    language_selector.classList.toggle("dark-mode");
+    editor.setOption("theme", "dark");
+    dark_mode.text = "[light mode]"
+} else {
+    document.body.classList.toggle("light-mode");
+    error_output.classList.toggle("light-mode");
+    language_selector.classList.toggle("light-mode");
+}
+function toggle_dark_mode() {
+    document.body.classList.toggle("dark-mode");
+    document.body.classList.toggle("light-mode");
+    error_output.classList.toggle("dark-mode");
+    error_output.classList.toggle("light-mode");
+    language_selector.classList.toggle("dark-mode");
+    language_selector.classList.toggle("light-mode");
+    if (is_dark_mode) {
+      editor.setOption("theme", "default");
+      dark_mode.text = "[dark mode]"
+    } else {
+      editor.setOption("theme", "dark");
+      dark_mode.text = "[light mode]"
+    }
+    is_dark_mode = !is_dark_mode;
+}
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', toggle_dark_mode);
+dark_mode.addEventListener("click", toggle_dark_mode);
 
 var buffer = {
   "c": "void f() {\n  g(1,\n  int x = 2 +\n}",

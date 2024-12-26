@@ -14,6 +14,10 @@
       display: flex;
       flex-direction: column;
       height: calc(100vh - 16px);
+      a:link { color: #00e; }
+      a:visited { color: #00e; }
+      a:hover { color: black; }
+      a:active { color: black; text-decoration:none; font-weight:normal; }
     }
     .CodeMirror {
       border: 1px solid grey;
@@ -23,11 +27,50 @@
       resize: none;
       margin-right: 0.5px;
     }
+    .cm-s-dark.CodeMirror { background: black; color: white; }
+    .cm-s-dark div.CodeMirror-selected { background: #4d4b8d; }
+    .cm-s-dark .CodeMirror-gutters { background: black; border-right: 1px solid #777; }
+    .cm-s-dark .CodeMirror-linenumber { color: #777; }
+    .cm-s-dark .CodeMirror-cursor { border-left: 1px solid white; }
     .playground {
       resize: none;
       display: flex;
       flex-direction: row; 
       box-sizing: border-box;
+    }
+    .dark-mode {
+      background-color: black;
+      color: white;
+      a:link { color: #88f; }
+      a:visited { color: #88f; }
+      a:hover { color: white; }
+      a:active { color: white; text-decoration:none; font-weight:normal; }
+    }
+    .light-mode {
+      background-color: white;
+      color: black;
+      a:link { color: #00e; }
+      a:visited { color: #00e; }
+      a:hover { color: black; }
+      a:active { color: black; text-decoration:none; font-weight:normal; }
+    }
+    @media (prefers-color-scheme: dark) {
+        body {
+            background-color: black;
+            color: white;
+            a:link { color: #88f; }
+            a:visited { color: #88f; }
+            a:hover { color: white; }
+            a:active { color: white; text-decoration:none; font-weight:normal; }
+        }
+        select {
+            background-color: black;
+            color: white;
+        }
+        textarea {
+            background-color: black;
+            color: white;
+        }
     }
     </style>
   </head>
@@ -46,6 +89,8 @@
       </label>
       &nbsp;
       <a id="show_implementation" href="https://github.com/0x2a-42/lelwel/tree/main/examples/c">[show implementation]</a>
+      &nbsp;
+      <a id="dark_mode" href="#">[dark mode]</a>
     </div>
     <div style="flex: 1; overflow: hidden; padding: 1px;">
       <div class="playground" style="height: 75%; max-height: 75%; align-items: center;">
