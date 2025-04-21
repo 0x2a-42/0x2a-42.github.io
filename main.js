@@ -66,7 +66,7 @@ var buffer = {
   "oberon0": "MODULE Example;\n  PROCEDURE f();\n    VAR x: INTEGER;\n  BEGIN\n    g(1,\n    x := 2 +\n  END f;\nEND Example.",
   "json": "{ \"a\" [1 2, 3], \"b\": \"c\", }",
   "toml": "[table1\na.b = { c = 42, d =\n\n[table2]\ne =\n\n[[1.2]]\n3.4 = 5.6",
-  "python2": "def f():\n    x = 2 +\n\ndef g():\n    pass",
+  "python2": "def f():\n    x = 2 +\n\ndef g():\n    pass\n",
 };
 
 function generate_syntax_tree_by_language(language) {
