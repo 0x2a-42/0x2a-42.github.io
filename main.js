@@ -4,6 +4,8 @@ import init_l, { generate_syntax_tree as generate_syntax_tree_l } from "./parser
 import init_lelwel, { generate_syntax_tree as generate_syntax_tree_lelwel, get_location  } from "./parsers/lelwel.js";
 import init_oberon0, { generate_syntax_tree as generate_syntax_tree_oberon0 } from "./parsers/lelwel_oberon0.js";
 import init_json, { generate_syntax_tree as generate_syntax_tree_json } from "./parsers/lelwel_json.js";
+import init_toml, { generate_syntax_tree as generate_syntax_tree_toml } from "./parsers/lelwel_toml.js";
+import init_python2, { generate_syntax_tree as generate_syntax_tree_python2 } from "./parsers/lelwel_python2.js";
 
 
 await init_c();
@@ -12,6 +14,8 @@ await init_l();
 await init_lelwel();
 await init_oberon0();
 await init_json();
+await init_toml();
+await init_python2();
 const input = document.getElementById("input");
 const cst_output = document.getElementById("cst_output");
 const error_output = document.getElementById("error_output");
@@ -61,6 +65,8 @@ var buffer = {
   "lelwel": "token Num='<number>';\ntoken Plus='+' Minus='-' Star='*' Slash='/' Pow='^';\ntoken LPar='(' RPar=')';\ntoken Whitespace;\n\nskip Whitespace;\nright '^';\nstart calc;\n\ncalc^: expr;\nexpr:\n  expr '^' expr @binary_expr\n| ('-' | '+') expr @unary_expr\n| expr ('*' | '/') expr @binary_expr\n| expr ('+' | '-') expr @binary_expr\n| Num @literal_expr\n| '(' expr ')' @paren_expr\n;",
   "oberon0": "MODULE Example;\n  PROCEDURE f();\n    VAR x: INTEGER;\n  BEGIN\n    g(1,\n    x := 2 +\n  END f;\nEND Example.",
   "json": "{ \"a\" [1 2, 3], \"b\": \"c\", }",
+  "toml": "[table1\na.b = { c = 42, d =\n\n[table2]\ne =\n\n[[1.2]]\n3.4 = 5.6",
+  "python2": "def f():\n    x = 2 +\n\ndef g():\n    pass",
 };
 
 function generate_syntax_tree_by_language(language) {
@@ -86,6 +92,12 @@ function generate_syntax_tree_by_language(language) {
                 break;
             case "json":
                 output = generate_syntax_tree_json(code);
+                break;
+            case "toml":
+                output = generate_syntax_tree_toml(code);
+                break;
+            case "python2":
+                output = generate_syntax_tree_python2(code);
                 break;
         }
     } catch (error) {}

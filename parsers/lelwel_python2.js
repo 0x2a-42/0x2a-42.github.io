@@ -211,7 +211,7 @@ async function __wbg_init(module_or_path) {
     }
 
     if (typeof module_or_path === 'undefined') {
-        module_or_path = new URL('lelwel_oberon0_bg.wasm', import.meta.url);
+        module_or_path = new URL('lelwel_python2_bg.wasm', import.meta.url);
     }
     const imports = __wbg_get_imports();
 

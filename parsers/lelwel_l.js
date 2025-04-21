@@ -95,7 +95,7 @@ function getArrayJsValueFromWasm0(ptr, len) {
 }
 /**
  * @param {string} source
- * @returns {(string)[]}
+ * @returns {string[]}
  */
 export function generate_syntax_tree(source) {
     const ptr0 = passStringToWasm0(source, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
