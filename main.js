@@ -144,6 +144,16 @@ function generate_syntax_tree_by_language(language) {
     error_output.textContent = output[1];
 }
 
+function update_language(language) {
+    editor.setValue(buffer[language]);
+    if (language === "lelwel") {
+        show_implementation.href = "https://github.com/0x2a-42/lelwel";
+    } else {
+        show_implementation.href = `https://github.com/0x2a-42/lelwel/tree/main/examples/${language}`;
+    }
+    generate_syntax_tree_by_language(language);
+}
+
 var lang = "c";
 const url_params = new URLSearchParams(window.location.hash.substr(1));
 if (url_params.has("lang")) {
@@ -153,8 +163,7 @@ if (url_params.has("lang")) {
         lang = url_lang;
     }
 }
-editor.setValue(buffer[lang]);
-generate_syntax_tree_by_language(lang);
+update_language(lang);
 
 editor.on("change", (editor) => {
     const language = language_selector.value;
@@ -163,12 +172,5 @@ editor.on("change", (editor) => {
 });
 
 language_selector.addEventListener("input", (event) => {
-    const language = event.target.value;
-    editor.setValue(buffer[language]);
-    if (language === "lelwel") {
-        show_implementation.href = "https://github.com/0x2a-42/lelwel";
-    } else {
-        show_implementation.href = `https://github.com/0x2a-42/lelwel/tree/main/examples/${language}`;
-    }
-    generate_syntax_tree_by_language(language);
+    update_language(event.target.value);
 });
