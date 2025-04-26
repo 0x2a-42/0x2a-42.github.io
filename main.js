@@ -144,8 +144,17 @@ function generate_syntax_tree_by_language(language) {
     error_output.textContent = output[1];
 }
 
-editor.setValue(buffer["c"]);
-generate_syntax_tree_by_language("c");
+var lang = "c";
+const url_params = new URLSearchParams(window.location.hash.substr(1));
+if (url_params.has("lang")) {
+    const url_lang = url_params.get("lang");
+    if (url_lang in buffer) {
+        language_selector.value = url_lang;
+        lang = url_lang;
+    }
+}
+editor.setValue(buffer[lang]);
+generate_syntax_tree_by_language(lang);
 
 editor.on("change", (editor) => {
     const language = language_selector.value;
