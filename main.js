@@ -6,6 +6,7 @@ import init_oberon0, { generate_syntax_tree as generate_syntax_tree_oberon0 } fr
 import init_json, { generate_syntax_tree as generate_syntax_tree_json } from "./parsers/lelwel_json.js";
 import init_toml, { generate_syntax_tree as generate_syntax_tree_toml } from "./parsers/lelwel_toml.js";
 import init_python2, { generate_syntax_tree as generate_syntax_tree_python2 } from "./parsers/lelwel_python2.js";
+import init_wgsl, { generate_syntax_tree as generate_syntax_tree_wgsl } from "./parsers/lelwel_wgsl.js";
 
 
 await init_c();
@@ -16,6 +17,7 @@ await init_oberon0();
 await init_json();
 await init_toml();
 await init_python2();
+await init_wgsl();
 const input = document.getElementById("input");
 const cst_output = document.getElementById("cst_output");
 const error_output = document.getElementById("error_output");
@@ -67,6 +69,7 @@ var buffer = {
   "json": "{ \"a\" [1 2, 3], \"b\": \"c\", }",
   "toml": "[table1\na.b = { c = 42, d =\n\n[table2]\ne =\n\n[[1.2]]\n3.4 = 5.6",
   "python2": "def f():\n    x = 2 +\n\ndef g():\n    pass\n",
+  "wgsl": "fn f() {\n  g(1,\n  let x = 2 +\n}",
 };
 
 function generate_syntax_tree_by_language(language) {
@@ -98,6 +101,9 @@ function generate_syntax_tree_by_language(language) {
                 break;
             case "python2":
                 output = generate_syntax_tree_python2(code);
+                break;
+            case "wgsl":
+                output = generate_syntax_tree_wgsl(code);
                 break;
         }
     } catch (error) {}
